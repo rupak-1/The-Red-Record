@@ -35,7 +35,7 @@ for line in data:
                 date, name, city, state = row
             else:
                 continue
-            date = parser.parse(f"{date.strip()} {str(current_year)}").strftime("%b %d, %Y")
+            date = parser.parse(f"{date.strip()} {str(current_year)}").strftime("%B %d, %Y")
             name = name.strip()
             city = city.strip()
 
@@ -45,9 +45,8 @@ for line in data:
                 state = state_abbreviations[state.strip().replace('.', '')]
             except:
                 continue
-            rows.append([charges[current_charge], current_charge, date, name, first_name, last_name, city, state])
+            rows.append([charges[current_charge], current_charge, date, date.split()[0], name, first_name, last_name, city, state])
 
 # print(rows)
-df = pd.DataFrame(rows, columns=["Charge_Id", "Charge", "Date", "Full Name", "First Name", "Last Name", "City", "State"])
-
-df.to_csv("charges.csv")
+df = pd.DataFrame(rows, columns=["Charge_Id", "Charge", "Date", "month", "Full Name", "First Name", "Last Name", "City", "State"])
+df.to_excel("charges_1.xlsx")
